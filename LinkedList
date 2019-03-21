@@ -1,0 +1,227 @@
+class linkedlist{
+    node head;
+     class node{
+        int val;
+        node next;
+        public node(int x){
+            val=x;
+            next=null;
+        }}
+        
+    
+/*append node at the last of list */        
+    public void append(int data){
+        node nya=new node(data);
+        if(head==null){
+            head=nya;
+        }
+        else {
+            node temp=head;
+            while(temp.next!=null)
+                temp=temp.next;
+        
+            temp.next=nya;
+        }
+    }
+    
+    /*reversing a linked list  */
+    public void reverse() {
+    	node prev=null;
+    	node forward=null;
+    	node current=head;
+    	
+    	
+    while(current!=null) {
+    	forward=current.next;
+    	current.next=prev;
+    	prev=current;
+    	current=forward; 	
+}
+    	head=prev;
+    
+    }    
+/* delete a given node */        
+    public void del(node N){
+        N.val=N.next.val;
+        N.next=N.next.next;            /* we cannot delete last node from this method because null.val==error and null.next==error */
+    }
+        
+        
+/*delete the last node of list */
+    public void pop(){
+        if(head.next==null){
+            head=null;
+        }
+        else{
+        node temp=head;
+        while(temp.next.next!=null)
+            temp=temp.next;
+        
+        temp.next=null;
+    }}
+    
+    
+    
+/*delete node at given position */
+    public void delAtpos(int pos){
+        
+        if(pos==0){
+            head=head.next;
+        }
+        else{
+        node temp=head;
+        for(int i=0;i<pos-1;i++){
+            temp=temp.next;
+        }    
+        temp.next=temp.next.next;
+    }}
+        
+                                                           
+/* Insert after a given node */
+    public void insert(node n,int data){
+        node nya=new node(data);
+        nya.next=n.next;
+        n.next=nya;
+    }
+    
+    
+/*insert after a position */
+    public void insertAfterpos(int pos,int data){
+        node nya=new node(data);
+        node temp=head;
+        for(int i=0;i<pos;i++){
+            temp=temp.next;
+        }
+        nya.next=temp.next;
+        temp.next=nya;
+    }
+    
+    /*make middle node of a list as head  */
+    public void makemidnodehead() {
+    	node temp=head;
+    	int len=0;
+    	while(temp!=null) {
+    		temp=temp.next;
+    		len+=1;
+    	}    	
+    	temp=head;
+    	for(int i=0;i<len/2-1;i++) {
+    		temp=temp.next;
+    	}
+    	node first=temp.next;
+    	temp.next=temp.next.next;
+    	first.next=head;
+    	head=first;
+    }
+    
+    /* deleting a linked list  */
+    public void deletelist() {
+    	head=null;      /*making a head null in java we can do that bcoz automatic garbage collection happens  but in other language we should delete all node  one by one*/
+    }
+   
+    /*get intersection of 2 linked lists  */
+    public void insectn(node n1,node n2) {
+    	node temp1=n1;
+    	node temp2=n2;
+    	while(temp1!=null) {
+    		temp2=n2;
+    		while(temp2!=null) {
+    			if(temp1.val==temp2.val) {
+    				append(temp1.val);
+    				break;
+    			}
+    			temp2=temp2.next;
+    		}
+    		temp1=temp1.next;
+    	}
+    }
+    
+    
+    /* get union of 2 linked lists */
+    public void unin(node n1,node n2){
+    	node temp1=n1;
+    	node temp2=n2;
+    	while(temp2!=null) {
+    		append(temp2.val);
+    		temp2=temp2.next;
+    }
+    	while(temp1!=null){
+    		temp2=n2;
+    		while(temp2!=null) {
+    			if(temp1.val==temp2.val)
+    				break;
+    			if(temp2.next==null) 
+    				append(temp1.val);
+    		temp2=temp2.next;
+    		}
+    		temp1=temp1.next;
+    	}}
+    
+    /*printing a linked list  */
+    public void printlist(){
+        System.out.printf("\n");
+        node temp=head;
+        while(temp!=null) {
+            System.out.printf("%d ", temp.val);
+            temp=temp.next;
+        }}
+    
+    
+    public static void main(String args[]){
+        linkedlist L=new linkedlist();
+        L.append(3);
+        L.append(4);
+        L.append(5);
+        L.append(6);
+        L.printlist();
+        L.insertAfterpos(0,7);
+        L.insertAfterpos(4,10);
+        L.printlist();
+        L.delAtpos(0);
+        L.delAtpos(2);
+        L.delAtpos(3);
+        L.printlist();
+        L.pop();
+        L.pop();
+        L.printlist();
+        L.insert(L.head,31);
+        L.insert(L.head.next,32);
+        L.printlist();
+        L.reverse();
+        L.printlist();
+        L.del(L.head);
+        L.del(L.head);
+        L.append(11);
+        L.append(12);
+        L.append(13);
+        L.append(14);
+        L.printlist();
+        L.makemidnodehead();
+        L.printlist();
+        L.append(15);
+        L.printlist();
+        L.makemidnodehead();
+        L.printlist();
+        L.deletelist();
+        L.printlist();
+        L.append(111);
+        L.append(112);
+        L.append(113);
+        L.append(114);
+        L.append(115);
+        L.printlist();
+        linkedlist L2 = new linkedlist();
+        L2.append(111);
+        L2.append(212);
+        L2.append(204);
+        L2.append(113);
+        L2.printlist();
+        linkedlist intersection = new linkedlist();
+        linkedlist union = new linkedlist();
+        intersection.insectn(L.head,L2.head);
+        intersection.printlist();
+        union.unin(L.head,L2.head);
+        union.printlist();  
+    }    
+}
+    
