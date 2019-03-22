@@ -1,5 +1,6 @@
 # Data-Structures-in-JAVA
-implementation of basic data structures in java 
+
+Implementation of basic data structures in java 
 
 1.LINKED LIST
     
@@ -17,3 +18,24 @@ implementation of basic data structures in java
     -intersection of 2 linked list
     -union of 2 linked list
     -printing the linked list
+
+
+
+2.STACK(using linked list)
+
+    SEQUENCE-WISE FUNCTIONS
+
+    -push
+    -pop
+    
+
+
+3.QUEUE(using linked list )
+
+    SEQUENCE-WISE FUNCTIONS
+    
+    -enqueue
+    -dequeue
+    
+    
+    
