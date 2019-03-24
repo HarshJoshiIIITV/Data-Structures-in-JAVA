@@ -1,0 +1,190 @@
+import java.util.*;
+
+
+public class bst {
+	node root;
+	
+	class node{
+		int val;
+		node left,right;
+		
+		public node(int data) {
+			val=data;
+			left=null;
+			right=null;
+			
+		}
+	}
+	
+	
+	/*insert in BST  */
+	
+	public node bstinsert(node current,int val) {
+		if(current==null) {
+			return new node(val);
+		}
+		
+		else if(current.val>val) {
+			current.left=bstinsert(current.left,val);
+		
+		
+	}
+		else if(current.val<val) {
+			current.right=bstinsert(current.right,val);
+		}
+		
+		return current;
+	
+}
+	
+	
+
+	public void insert(int val) {
+		root=bstinsert(root,val);
+		
+	}
+	
+	
+	/*find in bst */
+	public boolean fbst(node current,int val) {
+		if(current==null)
+			return false;
+		if(current.val==val) {
+			return true;
+		}
+		
+		return val<current.val?fbst(current.left,val):fbst(current.right,val);		
+		
+		
+		
+	}
+
+	
+	public boolean find(int val) {
+		return fbst(root,val);
+	}
+	
+	
+	
+	private int findSmallestValue(node root) {
+	    return root.left == null ? root.val : findSmallestValue(root.left);
+	}
+	
+	
+	
+	
+	/*delete in BST  */
+	public node deleteRecursive(node current, int value) {
+	    if (current == null) {
+	        return null;
+	    }
+	 
+	    if (value == current.val) {
+	    	if (current.left == null && current.right == null) {
+	    	    return null;
+	    	}if (current.right == null) {
+	    	    return current.left;
+	    	}
+	    	 
+	    	if (current.left == null) {
+	    	    return current.right;
+	    	}
+	    	int smallestValue = findSmallestValue(current.right);
+	    	current.val= smallestValue;
+	    	current.right = deleteRecursive(current.right, smallestValue);
+	    	return current;
+	    } 
+	    if (value < current.val) {
+	        current.left = deleteRecursive(current.left, value);
+	        return current;
+	    }
+	    current.right = deleteRecursive(current.right, value);
+	    return current;
+	}
+	
+	
+	public void delete(int value) {
+	    root = deleteRecursive(root, value);
+	}
+	
+	
+	/*DFS  */
+	
+	public void traverseInOrder(node node) {
+	    if (node != null) {
+	        traverseInOrder(node.left);
+	        System.out.print(" " + node.val);
+	        traverseInOrder(node.right);
+	    }
+	}
+	
+	
+	
+	public void traversePreOrder(node node) {
+	    if (node != null) {
+	        System.out.print(" " + node.val);
+	        traversePreOrder(node.left);
+	        traversePreOrder(node.right);
+	    }
+	}
+	
+	
+	
+	public void traversePostOrder(node node) {
+	    if (node != null) {
+	        traversePostOrder(node.left);
+	        traversePostOrder(node.right);
+	        System.out.print(" " + node.val);
+	    }
+	}
+	
+	
+	
+	/*BFS*/
+	public void traverseLevelOrder() {
+	    if (root == null) {
+	        return;
+	    }
+	 
+	    Queue<node> nodes = new LinkedList<>();
+	    nodes.add(root);
+	 
+	    while (!nodes.isEmpty()) {
+	 
+	        node node = nodes.remove();
+	 
+	        System.out.print(" " + node.val);
+	 
+	        if (node.left != null) {
+	            nodes.add(node.left);
+	        }
+	 
+	        if (node.right!= null) {
+	            nodes.add(node.right);
+	        }
+	    }
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String arg[]) {
+		bst B=new bst();
+		
+		 B.insert(6);
+		 B.insert(4);
+		 B.insert(8);
+		 B.insert(3);
+		 B.insert(5);
+		 B.insert(7);
+		 B.insert(9);
+		B.traverseInOrder(B.root);
+		System.out.println(B.find(9));
+		System.out.println(B.find(7));
+		B.delete(6);
+		B.traverseInOrder(B.root);
+	}
+}
